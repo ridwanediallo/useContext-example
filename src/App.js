@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useContext } from 'react';
+import AuthContext from './userContext';
 
-function App() {
+export default function App() {
+  const [username, setUsername] = useState('owais');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <AuthContext.Provider
+      value={{ username: username, updateUsername: setUsername }}
+    >
+      <User />
+    </AuthContext.Provider>
+  );
+}
+
+function User() {
+  const ctx = useContext(AuthContext);
+
+  return (
+    <div>
+      <h2>{ctx.username}</h2>
+      <UsernameEditor />
     </div>
   );
 }
 
-export default App;
+function UsernameEditor() {
+  const ctx = useContext(AuthContext);
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={ctx.username}
+        onChange={(e) => ctx.updateUsername(e.target.value)}
+      />
+    </div>
+  );
+}
