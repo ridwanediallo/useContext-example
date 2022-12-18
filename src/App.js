@@ -3,13 +3,7 @@ import AuthContext from './userContext';
 
 export default function App() {
   const [username, setUsername] = useState('owais');
-  return (
-    <AuthContext.Provider
-      value={{ username: username, updateUsername: setUsername }}
-    >
-      <User />
-    </AuthContext.Provider>
-  );
+  return <User />;
 }
 
 function User() {
